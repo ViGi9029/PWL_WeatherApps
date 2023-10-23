@@ -92,7 +92,7 @@ const ProfilPage = () => {
                                                 Konfirmasi Kata Sandi
                                             </FormLabel>
                                             <Input
-                                                type="email"
+                                                type="password"
                                                 bg="white"
                                                 autoComplete="confPass"
                                             />
