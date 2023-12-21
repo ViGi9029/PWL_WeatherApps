@@ -1,9 +1,7 @@
 import Logo from "../assets/logo.png";
-// Library ini membuat navigasi pada aplikasi web menjadi cepat dan SPA atau Single Page Application
 import { Link } from "react-router-dom";
 
 const Header = ({ title }) => {
-    // menerima props title dari parent component
     return (
         <header className="border-b-2 border-black  bg-color-primary">
             <div className="grid grid-cols-3 container mx-auto items-center">

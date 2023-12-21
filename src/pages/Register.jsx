@@ -8,7 +8,41 @@ const Register = () => {
     const navigate = useNavigate();
 
     const handleRegister = () => {
-        navigate("/");
+        // tampilkan data yang diinputkan ke console
+        const { name, email, username, password } = formik.values;
+        const db = JSON.parse(localStorage.getItem("db"));
+
+        if (db === null) {
+            localStorage.setItem(
+                "db",
+                JSON.stringify([
+                    {
+                        name,
+                        email,
+                        username,
+                        password,
+                    },
+                ])
+            );
+            navigate("/login");
+        } else {
+            if (db.some((item) => item.username === username)) {
+                alert("Username sudah ada");
+            } else if (db.some((item) => item.email === email)) {
+                alert("Email sudah ada");
+            } else {
+                db.push({
+                    name,
+                    email,
+                    username,
+                    password,
+                });
+                localStorage.setItem("db", JSON.stringify(db));
+                navigate("/login");
+            }
+
+            return;
+        }
     };
 
     const formik = useFormik({
@@ -110,7 +144,7 @@ const Register = () => {
                                     id="password"
                                     name="password"
                                     autoComplete="new-password"
-                                    />
+                                />
                                 <p className="text-red-500 text-sm mt-2">
                                     {formik.errors.password}
                                 </p>
@@ -120,7 +154,7 @@ const Register = () => {
                             <label
                                 htmlFor="confPassword"
                                 className="font-medium"
-                                >
+                            >
                                 Konfirmasi Kata Sandi
                             </label>
                             <div className="my-2">
@@ -131,7 +165,7 @@ const Register = () => {
                                     id="confPassword"
                                     name="confPassword"
                                     autoComplete="new-password"
-                                    />
+                                />
                                 <p className="text-red-500 text-sm mt-2">
                                     {formik.errors.confPassword}
                                 </p>

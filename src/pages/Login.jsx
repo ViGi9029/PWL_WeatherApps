@@ -5,22 +5,30 @@ import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Alert, AlertIcon } from "@chakra-ui/react";
+import { useEffect } from "react";
 
 const Login = () => {
     const navigate = useNavigate();
-    const [errorMessage, setErrorMessage] = useState("");
+    const [errorMessage, setErrorMessage] = useState();
 
     const handleLogin = () => {
         const { username, password } = formik.values;
-        if (username == "username" && password == "password") {
-            alert("login berhasil");
+        const db = JSON.parse(localStorage.getItem("db"));
+
+        if (
+            db.find(
+                (item) =>
+                    item.username === username && item.password === password
+            )
+        ) {
+            localStorage.setItem("username", username);
+            alert("Login Berhasil");
             navigate("/dashboard");
         } else {
             setErrorMessage("username atau password salah");
         }
     };
 
-    // melakukan validasi pada form
     const formik = useFormik({
         initialValues: {
             username: "",
@@ -38,13 +46,18 @@ const Login = () => {
         formik.setFieldValue(target.id, target.value);
     };
 
+    useEffect(() => {
+        if (localStorage.getItem("username")) {
+            navigate("/dashboard");
+        }
+    }, []);
+
     return (
         <>
             <Header title="Login" />
             <div className="max-w-6xl mt-10 mx-auto">
                 <div className="bg-color-accent mx-auto p-10 w-1/2 rounded-md">
                     {errorMessage && (
-                        // menampilkan pesan error jika username dan password yang dimasukan tidak sesuai
                         <Alert
                             status="error"
                             variant="left-accent"

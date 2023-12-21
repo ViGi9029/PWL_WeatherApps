@@ -4,11 +4,12 @@ import { FormControl, FormLabel, Image, Input } from "@chakra-ui/react";
 import { useRef, useState } from "react";
 
 const ProfilPage = () => {
-    const user = {
-        nama: "Jokowi",
-        email: "jokowi@gmail.com",
-        namaPengguna: "jokowi_widodo",
-    };
+    const uname = localStorage.getItem("username");
+    const userData = JSON.parse(localStorage.getItem("db"));
+    const user = userData.find((user) => user.username === uname);
+
+    const [name, setName] = useState(user.name);
+    const [email, setEmail] = useState(user.email);
 
     const picRef = useRef(null);
     const [picture, setPicture] = useState(
@@ -59,7 +60,8 @@ const ProfilPage = () => {
                                             <Input
                                                 type="text"
                                                 bg="white"
-                                                value={user.nama}
+                                                value={name}
+                                                onChange={(e) => setName(e.target.value)}
                                             />
                                         </FormControl>
                                         <FormControl>
@@ -67,7 +69,8 @@ const ProfilPage = () => {
                                             <Input
                                                 type="email"
                                                 bg="white"
-                                                value={user.email}
+                                                value={email}
+                                                onChange={(e) => setEmail(e.target.email)}
                                             />
                                         </FormControl>
                                         <FormControl>
@@ -75,7 +78,7 @@ const ProfilPage = () => {
                                             <Input
                                                 type="text"
                                                 bg="white"
-                                                value={user.namaPengguna}
+                                                value={uname}
                                                 disabled
                                             />
                                         </FormControl>
@@ -92,7 +95,7 @@ const ProfilPage = () => {
                                                 Konfirmasi Kata Sandi
                                             </FormLabel>
                                             <Input
-                                                type="password"
+                                                type="email"
                                                 bg="white"
                                                 autoComplete="confPass"
                                             />

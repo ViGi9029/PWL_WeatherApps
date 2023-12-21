@@ -1,7 +1,6 @@
 import { Image, Heading, Spinner } from "@chakra-ui/react";
 
 const DForecast = ({ forecast }) => {
-
     return (
         <div className="w-[450px] bg-color-accent rounded-lg font-roboto text-[#333] py-2 shadow">
             {!forecast ? (
