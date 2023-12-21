@@ -103,7 +103,7 @@ const DHome = () => {
                                                                 ?.condition.icon
                                                         }
                                                     />
-                                                    <strong>96°C</strong>
+                                                    <strong>{item.current?.temp_c}°C</strong>
                                                 </div>
                                             ))}
                                         </div>
